@@ -10,7 +10,8 @@
     ".git/{info,lfs,logs,refs,objects}/**",
     ".git/{index,*refs,*HEAD}",
     ".vscode",
-    ".devcontainer/devcontainer.json"
+    ".devcontainer/devcontainer.json",
+    ".gitignore"
   ],
   "dotnet.defaultSolution": "example-azure-functions-trace.sln"
 }
