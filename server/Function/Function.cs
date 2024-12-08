@@ -1,6 +1,4 @@
-﻿using System;
-using System.Threading.Tasks;
-using Azure.Messaging.ServiceBus;
+﻿using Azure.Messaging.ServiceBus;
 using Example.Azure.Functions.Trace.IAC.Contract;
 using Microsoft.Azure.Functions.Worker;
 using Microsoft.Extensions.Logging;
@@ -19,14 +17,6 @@ public class Function(ILogger<Function> logger)
         _logger.LogInformation("Execute1 processed message");
         _logger.LogInformation("Message ID: {id}", message.MessageId);
         _logger.LogInformation("Message Body: {body}", message.Body);
-        _logger.LogInformation("Message Content-Type: {contentType}", message.ContentType);
-
-        _logger.LogDebug("debug log");
-        _logger.LogWarning("warning log");
-        _logger.LogError("error log");
-        _logger.LogCritical("critical log");
-        _logger.LogTrace("trace log");
-        _logger.LogMetric("metric log", 1);
 
         var outputMessage = $"Output message created at {DateTime.Now}";
         return outputMessage;
@@ -39,6 +29,8 @@ public class Function(ILogger<Function> logger)
     {
         _logger.LogInformation("Execute2 processed message");
         _logger.LogInformation("Message ID: {id}", message.MessageId);
+        _logger.LogInformation("Message Body: {body}", message.Body);
+
         throw new Exception("An error occurred in Execute2");
     }
 }
