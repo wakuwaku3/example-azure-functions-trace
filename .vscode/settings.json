@@ -1,0 +1,16 @@
+{
+  "[markdown]": {
+    "editor.defaultFormatter": "DavidAnson.vscode-markdownlint"
+  },
+  "cSpell.words": [
+    "appi",
+    "pulumi"
+  ],
+  "cSpell.ignorePaths": [
+    ".git/{info,lfs,logs,refs,objects}/**",
+    ".git/{index,*refs,*HEAD}",
+    ".vscode",
+    ".devcontainer/devcontainer.json"
+  ],
+  "dotnet.defaultSolution": "example-azure-functions-trace.sln"
+}

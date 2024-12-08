@@ -1,0 +1,35 @@
+{
+  "name": "example-azure-functions-trace code space",
+  "dockerComposeFile": "docker-compose.yml",
+  "service": "app",
+  "workspaceFolder": "/workspaces/${localWorkspaceFolderBasename}",
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "GitHub.copilot",
+        "GitHub.copilot-chat",
+        "esbenp.prettier-vscode",
+        "EditorConfig.EditorConfig",
+        "streetsidesoftware.code-spell-checker",
+        "ms-azuretools.vscode-docker",
+        "henriiik.docker-linter",
+        "p1c2u.docker-compose",
+        "github.vscode-github-actions",
+        "DavidAnson.vscode-markdownlint",
+        "redhat.vscode-yaml",
+        "wmaurer.change-case",
+        "ms-dotnettools.csdevkit",
+        "ms-dotnettools.vscodeintellicode-csharp",
+        "ms-dotnettools.csharp",
+        "kreativ-software.csharpextensions",
+        "k--kato.docomment",
+        "jorgeserrano.vscode-csharp-snippets",
+        "adrianwilczynski.namespace"
+      ]
+    }
+  },
+  "remoteEnv": {
+    "PULUMI_ACCESS_TOKEN": "${localEnv:EXAMPLE_AZURE_FUNCTIONS_TRACE_PULUMI_ACCESS_TOKEN}",
+    "AZURE_RESOURCE_PREFIX": "${localEnv:EXAMPLE_AZURE_FUNCTIONS_TRACE_AZURE_RESOURCE_PREFIX}",
+  }
+}

@@ -1,0 +1,15 @@
+root = true
+
+[*]
+insert_final_newline = true
+end_of_line = lf
+
+[*]
+charset = utf-8
+indent_style = space
+tab_width = 4
+indent_size = 4
+
+[*.{json,xml,csproj,props,targets,yml,yaml,sh}]
+tab_width = 2
+indent_size = 2
