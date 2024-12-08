@@ -13,4 +13,4 @@ stack_name=dev
 # stack を作る（初回以降はエラーなるので結果は破棄する）
 pulumi stack init $stack_name 2>/dev/null
 
-pulumi destroy -s $stack_name
+pulumi destroy -s -y $stack_name
