@@ -13,9 +13,18 @@ stack_name=dev
 # stack を作る（初回以降はエラーなるので結果は破棄する）
 pulumi stack init $stack_name 2>/dev/null
 
-pulumi up -s -y $stack_name
-service_bus_connection_string=$(pulumi stack output -s $stack_name --show-secrets serviceBusConnectionString)
-application_insights_connection_string=$(pulumi stack output -s $stack_name --show-secrets applicationInsightsConnectionString)
+set -eu
 
-echo "ServiceBusConnectionString=$service_bus_connection_string"
-echo "ApplicationInsightsConnectionString=$application_insights_connection_string"
+# エラーハンドリング
+trap 'echo "Error occurred at line $LINENO. Exiting."; exit 1;' ERR
+
+
+pulumi up -s $stack_name -y
+resource_group_name=$(pulumi stack output -s $stack_name resourceGroupName)
+function_app_name=$(pulumi stack output -s $stack_name functionAppName)
+
+echo "ResourceGroupName=$resource_group_name"
+echo "FunctionAppName=$function_app_name"
+
+cd $root_path/server/Function
+func azure functionapp publish $function_app_name

@@ -2,8 +2,15 @@
   "[markdown]": {
     "editor.defaultFormatter": "DavidAnson.vscode-markdownlint"
   },
+  "[xml]": {
+    "editor.defaultFormatter": "redhat.vscode-xml"
+  },
   "cSpell.words": [
     "appi",
+    "appsettings",
+    "DOTNETCORE",
+    "functionapp",
+    "japaneast",
     "pulumi"
   ],
   "cSpell.ignorePaths": [

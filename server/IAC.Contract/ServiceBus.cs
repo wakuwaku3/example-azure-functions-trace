@@ -8,8 +8,14 @@ public static class ServiceBus
 
     public static IEnumerable<Queue> Queues =>
     [
-        new Queue{Name = "example-queue"},
+        new Queue { Name = ExampleQueue1Name },
+        new Queue { Name = ExampleQueue2Name },
+        new Queue { Name = ExampleQueue3Name },
     ];
+
+    public const string ExampleQueue1Name = "example-queue1";
+    public const string ExampleQueue2Name = "example-queue2";
+    public const string ExampleQueue3Name = "example-queue3";
 
     public record Queue
     {

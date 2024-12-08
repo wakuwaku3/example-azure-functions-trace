@@ -24,7 +24,9 @@
         "kreativ-software.csharpextensions",
         "k--kato.docomment",
         "jorgeserrano.vscode-csharp-snippets",
-        "adrianwilczynski.namespace"
+        "adrianwilczynski.namespace",
+        "redhat.vscode-xml",
+        "ms-azuretools.vscode-azurefunctions"
       ]
     }
   },
