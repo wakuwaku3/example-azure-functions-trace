@@ -4,6 +4,8 @@ public static class ServiceBus
 {
     public static string Namespace { get; } = Prefix.With("sbn");
 
+    public static string FullyQualifiedNamespace { get; } = $"{Namespace}.servicebus.windows.net";
+
     public static string NamespaceAuthRule { get; } = "SharedAccessKey";
 
     public static IEnumerable<Queue> Queues =>

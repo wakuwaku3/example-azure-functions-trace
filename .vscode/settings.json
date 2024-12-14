@@ -9,9 +9,11 @@
     "appi",
     "appsettings",
     "DOTNETCORE",
+    "Entra",
     "functionapp",
     "japaneast",
-    "pulumi"
+    "pulumi",
+    "servicebus"
   ],
   "cSpell.ignorePaths": [
     ".git/{info,lfs,logs,refs,objects}/**",
