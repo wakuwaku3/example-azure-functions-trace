@@ -7,26 +7,50 @@ namespace Example.Azure.Functions.Trace.Function;
 
 public class Function(ILogger<Function> logger)
 {
-    [Function(nameof(Execute1))]
-    [ServiceBusOutput(ServiceBus.ExampleQueue2Name)]
-    public string Execute1(
-    [ServiceBusTrigger(ServiceBus.ExampleQueue1Name)] ServiceBusReceivedMessage message)
+    [Function(nameof(Execute1Async))]
+    public async Task Execute1Async(
+    [ServiceBusTrigger(ServiceBus.ExampleQueue1Name, AutoCompleteMessages = true)] ServiceBusReceivedMessage message)
     {
-        logger.LogInformation($"{nameof(Execute1)} executing...");
-        var outputMessage = $"Output message created at {DateTime.Now}";
-        return outputMessage;
+        logger.LogInformation("{name} executing... id: {id}", nameof(Execute1Async), message.MessageId);
+        await Task.Delay(100);
+        logger.LogInformation("{name} executed. id: {id}", nameof(Execute1Async), message.MessageId);
     }
 
-    [Function(nameof(Execute2))]
-    [ServiceBusOutput(ServiceBus.ExampleQueue3Name)]
-    public string Execute2(
-    [ServiceBusTrigger(ServiceBus.ExampleQueue2Name, IsBatched = true)] ServiceBusReceivedMessage[] messages)
+    [Function(nameof(Execute2Async))]
+    public async Task Execute2Async(
+    [ServiceBusTrigger(ServiceBus.ExampleQueue2Name, IsBatched = true, AutoCompleteMessages = true)] ServiceBusReceivedMessage[] messages)
     {
-        logger.LogInformation($"{nameof(Execute2)} executing...");
+        logger.LogInformation($"{nameof(Execute2Async)} executing...");
         foreach (var message in messages)
         {
-            logger.LogInformation("MessageId: {id}", message.MessageId);
+            logger.LogInformation("{name} executing... id: {id}", nameof(Execute2Async), message.MessageId);
+            await Task.Delay(100);
+            logger.LogInformation("{name} executed. id: {id}", nameof(Execute2Async), message.MessageId);
         }
-        throw new Exception("An error occurred in Execute2");
+    }
+
+    private static readonly SemaphoreSlim semaphore = new(16);
+    [Function(nameof(Execute3Async))]
+    public async Task Execute3Async(
+    [ServiceBusTrigger(ServiceBus.ExampleQueue3Name, IsBatched = true, AutoCompleteMessages = true)] ServiceBusReceivedMessage[] messages)
+    {
+        logger.LogInformation($"{nameof(Execute3Async)} executing...");
+
+        var tasks = messages.Select(async message =>
+        {
+            await semaphore.WaitAsync();
+            try
+            {
+                logger.LogInformation("{name} executing... id: {id}", nameof(Execute3Async), message.MessageId);
+                await Task.Delay(100);
+                logger.LogInformation("{name} executed. id: {id}", nameof(Execute3Async), message.MessageId);
+            }
+            finally
+            {
+                semaphore.Release();
+            }
+        });
+
+        await Task.WhenAll(tasks);
     }
 }

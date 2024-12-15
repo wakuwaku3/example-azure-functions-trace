@@ -1,12 +1,8 @@
-using System.Text;
 using System.Text.Json;
-using Azure.Messaging.ServiceBus;
 using Microsoft.ApplicationInsights;
 using Microsoft.ApplicationInsights.DataContracts;
 using Microsoft.Azure.Functions.Worker;
 using Microsoft.Azure.Functions.Worker.Middleware;
-using Microsoft.Extensions.Logging;
-using Microsoft.VisualBasic;
 
 namespace Example.Azure.Functions.Trace.Function;
 

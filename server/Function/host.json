@@ -10,5 +10,15 @@
         "excludedTypes": "Exception;Trace;Event;Request"
       }
     }
+  },
+  "extensions": {
+    "serviceBus": {
+      "maxConcurrentCalls": 16,
+      "maxMessageBatchSize": 1000
+    }
+  },
+  "concurrency": {
+    "dynamicConcurrencyEnabled": true,
+    "snapshotPersistenceEnabled": true
   }
 }
