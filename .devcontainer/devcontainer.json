@@ -26,7 +26,8 @@
         "jorgeserrano.vscode-csharp-snippets",
         "adrianwilczynski.namespace",
         "redhat.vscode-xml",
-        "ms-azuretools.vscode-azurefunctions"
+        "ms-azuretools.vscode-azurefunctions",
+        "dev-land.resharpervscode"
       ]
     }
   },

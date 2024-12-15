@@ -11,7 +11,8 @@ using Pulumi.AzureNative.Storage;
 using Pulumi.AzureNative.Storage.Inputs;
 
 namespace Example.Azure.Functions.Trace.IAC;
-class Program
+
+internal class Program
 {
     static Task<int> Main() => Pulumi.Deployment.RunAsync<MyStack>();
 }
@@ -41,7 +42,7 @@ public class MyStack : Stack
         }, new CustomResourceOptions { DependsOn = { resourceGroup } });
 
         // Service Bus Queue の作成
-        var queues = Contract.ServiceBus.Queues.Select(queue =>
+        _ = Contract.ServiceBus.Queues.Select(queue =>
             new Pulumi.AzureNative.ServiceBus.Queue(queue.Name, new Pulumi.AzureNative.ServiceBus.QueueArgs
             {
                 ResourceGroupName = resourceGroup.Name,
@@ -180,6 +181,8 @@ public class MyStack : Stack
         }, new CustomResourceOptions { DependsOn = { appServicePlan, storageAccount, serviceBusNamespace, component } });
         FunctionAppName = functionApp.Name;
     }
+
     [Output("resourceGroupName")] public Output<string> ResourceGroupName { get; init; }
     [Output("functionAppName")] public Output<string> FunctionAppName { get; init; }
 }
+

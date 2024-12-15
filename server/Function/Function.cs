@@ -7,17 +7,12 @@ namespace Example.Azure.Functions.Trace.Function;
 
 public class Function(ILogger<Function> logger)
 {
-    private readonly ILogger<Function> _logger = logger;
-
     [Function(nameof(Execute1))]
     [ServiceBusOutput(ServiceBus.ExampleQueue2Name)]
     public string Execute1(
     [ServiceBusTrigger(ServiceBus.ExampleQueue1Name)] ServiceBusReceivedMessage message)
     {
-        _logger.LogInformation("Execute1 processed message");
-        _logger.LogInformation("Message ID: {id}", message.MessageId);
-        _logger.LogInformation("Message Body: {body}", message.Body);
-
+        logger.LogInformation($"{nameof(Execute1)} executing...");
         var outputMessage = $"Output message created at {DateTime.Now}";
         return outputMessage;
     }
@@ -25,12 +20,13 @@ public class Function(ILogger<Function> logger)
     [Function(nameof(Execute2))]
     [ServiceBusOutput(ServiceBus.ExampleQueue3Name)]
     public string Execute2(
-    [ServiceBusTrigger(ServiceBus.ExampleQueue2Name)] ServiceBusReceivedMessage message)
+    [ServiceBusTrigger(ServiceBus.ExampleQueue2Name, IsBatched = true)] ServiceBusReceivedMessage[] messages)
     {
-        _logger.LogInformation("Execute2 processed message");
-        _logger.LogInformation("Message ID: {id}", message.MessageId);
-        _logger.LogInformation("Message Body: {body}", message.Body);
-
+        logger.LogInformation($"{nameof(Execute2)} executing...");
+        foreach (var message in messages)
+        {
+            logger.LogInformation("MessageId: {id}", message.MessageId);
+        }
         throw new Exception("An error occurred in Execute2");
     }
 }

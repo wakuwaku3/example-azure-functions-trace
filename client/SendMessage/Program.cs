@@ -2,15 +2,8 @@
 using Azure.Identity;
 using Example.Azure.Functions.Trace.IAC.Contract;
 
-// name of your Service Bus queue
-// the client that owns the connection and can be used to create senders and receivers
-ServiceBusClient client;
-
-// the sender used to publish messages to the queue
-ServiceBusSender sender;
-
 // number of messages to be sent to the queue
-const int numOfMessages = 3;
+const int numOfMessages = 1;
 
 // The Service Bus client types are safe to cache and use as a singleton for the lifetime
 // of the application, which is best practice when messages are being published or read
@@ -22,12 +15,12 @@ var clientOptions = new ServiceBusClientOptions
 {
     TransportType = ServiceBusTransportType.AmqpWebSockets
 };
-//TODO: Replace the "<NAMESPACE-NAME>" and "<QUEUE-NAME>" placeholders.
-client = new ServiceBusClient(
+
+var client = new ServiceBusClient(
     ServiceBus.FullyQualifiedNamespace,
     new DefaultAzureCredential(),
     clientOptions);
-sender = client.CreateSender(ServiceBus.ExampleQueue1Name);
+var sender = client.CreateSender(ServiceBus.ExampleQueue1Name);
 
 // create a batch 
 using ServiceBusMessageBatch messageBatch = await sender.CreateMessageBatchAsync();
@@ -55,6 +48,3 @@ finally
     await sender.DisposeAsync();
     await client.DisposeAsync();
 }
-
-Console.WriteLine("Press any key to end the application");
-Console.ReadKey();
